@@ -1,10 +1,8 @@
 #include <stdio.h>
 #include "application/book_service.h"
 #include "application/dto/book_dto.h"
-
-/* infra */
-extern struct book_repo memory_book_repo;
-int book_dto_from_json(const char *json, struct book_dto *dto);
+#include "application/dto/book_dto_json.h"
+#include "infra/book_repo.h"
 
 int main(void)
 {
