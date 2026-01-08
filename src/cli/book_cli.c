@@ -23,11 +23,19 @@ int book_cli_run(int argc, char **argv)
 		}
 
 		struct book_dto dto = {0};
-		dto.id = atoi(argv[2]);
+		int id = atoi(argv[2]);
+		dto.id = id;
 		strncpy(dto.title, argv[3], sizeof(dto.title) - 1);
 
 		book_create_from_dto(&memory_book_repo, &dto);
 		printf("book added\n");
+
+		struct book_dto output_dto = {0};
+		if (book_get_book_dto(&memory_book_repo, id, &output_dto) != 0) {
+				printf("book not found\n");
+				return -1;
+		}
+		printf("output_dto: %s\n", output_dto.title);
 		return 0;
 	}
 

@@ -15,4 +15,7 @@ int book_rename_service(struct book_repo *repo,
 
 int book_create_from_dto(struct book_repo *repo,
                          const struct book_dto *dto);
+
+int book_get_book_dto(struct book_repo *repo, 
+		int id, struct book_dto *dto);
 #endif

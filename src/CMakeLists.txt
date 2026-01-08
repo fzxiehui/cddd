@@ -13,10 +13,9 @@ target_sources(ddd PRIVATE
 	infrastructure/json/book_json.c
 )
 
+# 添加cjson
 target_link_libraries(ddd PRIVATE cjson)
-target_link_libraries(ddd PRIVATE
-	cjson
-)
+
 target_include_directories(ddd PRIVATE
 	${CMAKE_CURRENT_SOURCE_DIR}
 )
