@@ -7,12 +7,16 @@
 #include "application/dto/book_dto.h"
 
 /* repo 注入点 */
-#include "infrastructure/persistence/book_repo_memory.h"
+#include "infrastructure/persistence/book_repo_file.h"
 
 int book_cli_run(int argc, char **argv)
 {
+	/* repo */
+	struct book_repo repo;
+	file_book_repo_init(&repo, "./books.db");
+
 	if (argc < 2) {
-		printf("usage: app book <add>\n");
+		printf("usage: ddd book <add><get>\n");
 		return -1;
 	}
 
@@ -21,21 +25,20 @@ int book_cli_run(int argc, char **argv)
 			printf("usage: app book add <id> <title>\n");
 			return -1;
 		}
+		book_create_service(&repo, atoi(argv[2]), argv[3]);
 
-		struct book_dto dto = {0};
-		int id = atoi(argv[2]);
-		dto.id = id;
-		strncpy(dto.title, argv[3], sizeof(dto.title) - 1);
+		return 0;
+	}
 
-		book_create_from_dto(&memory_book_repo, &dto);
-		printf("book added\n");
-
-		struct book_dto output_dto = {0};
-		if (book_get_book_dto(&memory_book_repo, id, &output_dto) != 0) {
-				printf("book not found\n");
-				return -1;
+	if (strcmp(argv[1], "get") == 0) {
+		if (argc < 3) {
+			printf("usage: app book get <id>\n");
+			return -1;
 		}
-		printf("output_dto: %s\n", output_dto.title);
+			struct book_dto dto = {};
+			book_get_book_dto(&repo, atoi(argv[2]), &dto);
+			printf("%s\n", dto.title);
+
 		return 0;
 	}
 

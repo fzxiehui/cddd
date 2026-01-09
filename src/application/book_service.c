@@ -17,7 +17,7 @@ int book_create_service(struct book_repo *repo,
 	if (book_init(&b, id, title) != 0)
 		return -1;
 
-	return repo->save(&b);
+	return repo->save(repo, &b);
 }
 
 int book_rename_service(struct book_repo *repo,
@@ -29,13 +29,13 @@ int book_rename_service(struct book_repo *repo,
 	if (!repo || !repo->load || !repo->save)
 		return -1;
 
-	if (repo->load(id, &b) != 0)
+	if (repo->load(repo, id, &b) != 0)
 		return -1;
 
 	if (book_rename(&b, new_title) != 0)
 		return -1;
 
-	return repo->save(&b);
+	return repo->save(repo, &b);
 }
 
 int book_create_from_dto(struct book_repo *repo,
@@ -50,7 +50,7 @@ int book_create_from_dto(struct book_repo *repo,
     if (book_init(&b, dto->id, dto->title) != 0)
         return -1;
 
-    return repo->save(&b);
+    return repo->save(repo, &b);
 }
 
 // int book_get_book_dto(struct book_repo *repo, 
@@ -75,7 +75,7 @@ int book_get_book_dto(struct book_repo *repo,
         return -1;
 
     struct book b;
-    if (repo->load(id, &b) != 0)
+    if (repo->load(repo, id, &b) != 0)
         return -1;
 
     memset(dto, 0, sizeof(*dto));

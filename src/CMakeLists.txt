@@ -10,6 +10,7 @@ target_sources(ddd PRIVATE
 	application/book_service.c
 
 	infrastructure/persistence/book_repo_memory.c
+	infrastructure/persistence/book_repo_file.c
 	infrastructure/json/book_json.c
 )
 
