@@ -5,6 +5,7 @@
 #include <string.h>
 #include <stdio.h>
 
+/* 通过id与title创建book */
 int book_create_service(struct book_repo *repo,
                         int id,
                         const char *title)
@@ -20,6 +21,7 @@ int book_create_service(struct book_repo *repo,
 	return repo->save(repo, &b);
 }
 
+/* 通过 id 改标题 */ 
 int book_rename_service(struct book_repo *repo,
                         int id,
                         const char *new_title)
@@ -38,6 +40,7 @@ int book_rename_service(struct book_repo *repo,
 	return repo->save(repo, &b);
 }
 
+/* 通过dto创建 book */
 int book_create_from_dto(struct book_repo *repo,
                          const struct book_dto *dto)
 {
@@ -53,20 +56,7 @@ int book_create_from_dto(struct book_repo *repo,
     return repo->save(repo, &b);
 }
 
-// int book_get_book_dto(struct book_repo *repo, 
-// 		int id, struct book_dto *dto)
-// {
-// 	if (!id || !dto)
-// 		return -1;
-// 
-// 	struct book b;
-// 	if (repo->load(id, &b) != 0) 
-// 		return -1;
-// 	memset(dto, 0, sizeof(*dto));
-// 	dto->id = b.id;
-// 	strncpy(dto->title, b.title, strlen(b.title));
-// 	return 0;
-// }
+/* 通过 book id 获取dto 形式的book */
 int book_get_book_dto(struct book_repo *repo,
                       int id,
                       struct book_dto *dto)

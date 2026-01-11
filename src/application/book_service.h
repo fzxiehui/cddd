@@ -13,6 +13,7 @@ int book_rename_service(struct book_repo *repo,
                         int id,
                         const char *new_title);
 
+// 通过 dto 数据创建 book
 int book_create_from_dto(struct book_repo *repo,
                          const struct book_dto *dto);
 

@@ -11,7 +11,8 @@ target_sources(ddd PRIVATE
 
 	infrastructure/persistence/book_repo_memory.c
 	infrastructure/persistence/book_repo_file.c
-	infrastructure/json/book_json.c
+
+	infrastructure/json/book_dto_json.c
 )
 
 # 添加cjson
